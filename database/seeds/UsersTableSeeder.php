@@ -12,6 +12,8 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+      DB::table('users')->delete();
+
       DB::table('users')->insert([
         'role_id' => '1',
         'name' => 'MD.Admin',

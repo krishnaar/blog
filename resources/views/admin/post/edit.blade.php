@@ -104,9 +104,9 @@
 
 @push('js')
 <!-- Select Plugin Js -->
+<script src="{{ asset('assets/backend/plugins/tinymce/tinymce.js') }}"></script>
 <script src="{{ asset('assets/backend/plugins/bootstrap-select/js/bootstrap-select.js') }}"></script>
 <!-- TinyMCE -->
-<script src="{{ asset('assets/backend/plugins/tinymce/tinymce.js') }}"></script>
 <script>
 $(function () {
     //TinyMCE

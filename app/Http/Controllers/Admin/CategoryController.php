@@ -41,7 +41,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-
+      // return $request;
       $this->validate($request,[
         'name' => 'required|unique:categories',
         'image' => 'required|mimes:jpeg,bmp,png,jpg'
@@ -114,6 +114,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+      // return $request;
       $this->validate($request,[
             'name' => 'required',
             'image' => 'mimes:jpeg,bmp,png,jpg'

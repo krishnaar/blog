@@ -8,31 +8,24 @@
 
 @section('content')
 <div class="container-fluid">
-    <!-- Vertical Layout | With Floating Label -->
-    <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-                <div class="header">
-                    <h2>
-                        EDIT TAG
-                    </h2>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card ">
+                <div class="card-header card-header-rose card-header-text">
+                    <div class="card-text">
+                        <h4 class="card-title">Edit Tag</h4>
+                    </div>
                 </div>
-                <div class="body">
-                    <form action="{{ route('admin.tag.update',$tag->id) }}" method="POST">
-                      @csrf
-                      @method('PUT')
-                        <div class="form-group form-float">
-                            <div class="form-line">
-                                <input type="text" id="name" class="form-control" name="name" value="{{ $tag->name }}">
-                                <label class="form-label">Tag Name</label>
-                            </div>
-                        </div>
-                        <a class="btn btn-danger m-t-15 waves-effect" href="{{ route('admin.tag.index') }}">BACK</a>
-                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">SUBMIT</button>
-                    </form>
+                <div class="card-body ">
+                    
+                    {!! Form::model($tag, ['route'=>['admin.tag.update', $tag->id], 'method' => 'put', 'autocomplete'=>'off') !!}
+                        @include('admin.tag.form')
+                    {!! Form::close() !!}
+                    
                 </div>
             </div>
         </div>
+        
     </div>
 </div>
 @endsection

@@ -1,118 +1,85 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/backend') }}/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="{{ asset('assets/backend') }}/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title') - {{ config('app.name', 'Laravel') }}</title>
-    <!-- Favicon-->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <title>
+    @yield('title') - {{ config('app.name', 'Laravel') }}
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+    name='viewport' />
+  <!-- Extra details for Live View on GitHub Pages -->
+  <!-- Canonical SEO -->
+  <link rel="canonical" href="https://www.creative-tim.com/product/material-dashboard-pro" />
+  <!--  Social tags      -->
+  <meta name="keywords"
+    content="creative tim, html dashboard, html css dashboard, web dashboard, bootstrap 4 dashboard, bootstrap 4, css3 dashboard, bootstrap 4 admin, material dashboard bootstrap 4 dashboard, frontend, responsive bootstrap 4 dashboard, material design, material dashboard bootstrap 4 dashboard">
+  <meta name="description"
+    content="Material Dashboard PRO is a Premium Material Bootstrap 4 Admin with a fresh, new design inspired by Google's Material Design.">
+  <!-- Schema.org markup for Google+ -->
+  <meta itemprop="name" content="Material Dashboard PRO by Creative Tim">
+  <meta itemprop="description"
+    content="Material Dashboard PRO is a Premium Material Bootstrap 4 Admin with a fresh, new design inspired by Google's Material Design.">
+  <meta itemprop="image"
+    content="https://s3.amazonaws.com/creativetim_bucket/products/51/original/opt_mdp_thumbnail.jpg">
+  <!-- Twitter Card data -->
+  <meta name="twitter:card" content="product">
+  <meta name="twitter:site" content="@creativetim">
+  <meta name="twitter:title" content="Material Dashboard PRO by Creative Tim">
+  <meta name="twitter:description"
+    content="Material Dashboard PRO is a Premium Material Bootstrap 4 Admin with a fresh, new design inspired by Google's Material Design.">
+  <meta name="twitter:creator" content="@creativetim">
+  <meta name="twitter:image"
+    content="https://s3.amazonaws.com/creativetim_bucket/products/51/original/opt_mdp_thumbnail.jpg">
+  <!-- Open Graph data -->
+  <meta property="fb:app_id" content="655968634437471">
+  <meta property="og:title" content="Material Dashboard PRO by Creative Tim" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="http://demos.creative-tim.com/material-dashboard-pro/examples/dashboard.html" />
+  <meta property="og:image"
+    content="https://s3.amazonaws.com/creativetim_bucket/products/51/original/opt_mdp_thumbnail.jpg" />
+  <meta property="og:description"
+    content="Material Dashboard PRO is a Premium Material Bootstrap 4 Admin with a fresh, new design inspired by Google's Material Design." />
+  <meta property="og:site_name" content="Creative Tim" />
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
-
-    <!-- Bootstrap Core Css -->
-    <link href="{{ asset('assets/backend/plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
-
-    <!-- Waves Effect Css -->
-    <link href="{{ asset('assets/backend/plugins/node-waves/waves.css') }}" rel="stylesheet" />
-
-    <!-- Animation Css -->
-    <link href="{{ asset('assets/backend/plugins/animate-css/animate.css') }}" rel="stylesheet" />
-
-    <!-- Morris Chart Css-->
-    <link href="{{ asset('assets/backend/plugins/morrisjs/morris.css') }}" rel="stylesheet" />
-
-    <!-- Custom Css -->
-    <link href="{{ asset('assets/backend/css/style.css') }}" rel="stylesheet">
-
-    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-    <link href="{{ asset('assets/backend/css/themes/all-themes.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    @stack('css')
+  @include('layouts.backend.partial.css')
+  
 </head>
-<body class="theme-blue">
-  <!-- Page Loader -->
-  <div class="page-loader-wrapper">
-      <div class="loader">
-          <div class="preloader">
-              <div class="spinner-layer pl-red">
-                  <div class="circle-clipper left">
-                      <div class="circle"></div>
-                  </div>
-                  <div class="circle-clipper right">
-                      <div class="circle"></div>
-                  </div>
-              </div>
-          </div>
-          <p>Please wait...</p>
-      </div>
-  </div>
-  <!-- #END# Page Loader -->
-  <!-- Overlay For Sidebars -->
-  <div class="overlay"></div>
-  <!-- #END# Overlay For Sidebars -->
-  <!-- Search Bar -->
-  <div class="search-bar">
-      <div class="search-icon">
-          <i class="material-icons">search</i>
-      </div>
-      <input type="text" placeholder="START TYPING...">
-      <div class="close-search">
-          <i class="material-icons">close</i>
-      </div>
-  </div>
-  <!-- #END# Search Bar -->
-  <!-- Top Bar -->
-  @include('layouts.backend.partial.topbar')
-  <!-- #Top Bar -->
-  <section>
-      <!-- Left Sidebar -->
+
+<body class="">
+  <!-- Extra details for Live View on GitHub Pages -->
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <div class="wrapper ">
       @include('layouts.backend.partial.sidebar')
-      <!-- #END# Left Sidebar -->
-  </section>
 
-  <section class="content">
-      @yield('content')
-  </section>
+    <div class="main-panel">
+      <!-- Navbar -->
+      @include('layouts.backend.partial.topbar')      
+      
+      <!-- End Navbar -->
+      <div class="content">
+        @yield('content')               
+      </div>
+      
+      @include('layouts.backend.partial.footer')            
 
-  <!-- Jquery Core Js -->
-  <script src="{{ asset('assets/backend/plugins/jquery/jquery.min.js') }}"></script>
+    </div>
+  </div>
 
-  <!-- Bootstrap Core Js -->
-  <script src="{{ asset('assets/backend/plugins/bootstrap/js/bootstrap.js') }}"></script>
-
-  <!-- Select Plugin Js -->
-  <!-- <script src="{{ asset('assets/backend/plugins/bootstrap-select/js/bootstrap-select.js') }}"></script> -->
-
-  <!-- Slimscroll Plugin Js -->
-  <script src="{{ asset('assets/backend/plugins/jquery-slimscroll/jquery.slimscroll.js') }}"></script>
-
-  <!-- Waves Effect Plugin Js -->
-  <script src="{{ asset('assets/backend/plugins/node-waves/waves.js') }}"></script>
-
-  <!-- Custom Js -->
-  <script src="{{ asset('assets/backend/js/admin.js') }}"></script>
-
-  <!-- Demo Js -->
-  <script src="{{ asset('assets/backend/js/demo.js') }}"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-  {!! Toastr::message() !!}
-  <script>
-    @if($errors->any())
-      @foreach($errors->all() as $error)
-        toastr.error('{{ $error }}', 'Error', {
-          closeButton:true,
-          progressBar:true,
-        });
-      @endforeach
-    @endif
-  </script>
-@stack('js')
+  {{-- @include('layouts.backend.partial.right') --}}
+  
+@include('layouts.backend.partial.js')
+ 
 </body>
+
 </html>

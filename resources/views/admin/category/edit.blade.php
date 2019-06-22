@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title', 'Category')
+@section('title', 'Tag')
 
 @push('css')
 
@@ -8,36 +8,23 @@
 
 @section('content')
 <div class="container-fluid">
-    <!-- Vertical Layout | With Floating Label -->
-    <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-                <div class="header">
-                    <h2>
-                        EDIT CATEGORY
-                    </h2>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card ">
+                <div class="card-header card-header-rose card-header-text">
+                    <div class="card-text">
+                        <h4 class="card-title">Add New Category</h4>
+                    </div>
                 </div>
-                <div class="body">
-                    <form action="{{ route('admin.category.update', $category->id) }}" method="POST" enctype="multipart/form-data">
-                      @csrf
-                      @method('PUT')
-                        <div class="form-group form-float">
-                            <div class="form-line">
-                                <input type="text" id="name" class="form-control" name="name" value="{{ $category->name }}">
-                                <label class="form-label">Category Name</label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                          <input type="file" name="image">
-                        </div>
-
-                        <a class="btn btn-danger m-t-15 waves-effect" href="{{ route('admin.category.index') }}">BACK</a>
-                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">SUBMIT</button>
-                    </form>
+                <div class="card-body ">
+                    
+                    {!! Form::model($category, ['route'=>['admin.category.update', $category->id], 'method' => 'put', 'autocomplete'=>'off', 'enctype' => 'multipart/form-data']) !!}
+                        @include('admin.category.form')
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
+        
     </div>
 </div>
 @endsection

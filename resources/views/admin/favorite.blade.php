@@ -1,53 +1,59 @@
 @extends('layouts.backend.app')
 
-@section('title', 'Post')
+@section('title', 'Favorite')
 
 @push('css')
 
 <!-- JQuery DataTable Css -->
-<link href="{{ asset('assets/backend/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css') }}" rel="stylesheet">
+
 
 @endpush
 
 @section('content')
 <div class="container-fluid">
-    <!-- Exportable Table -->
-    <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-                <div class="header">
-                    <h2>
-                        ALL FAVORITE POSTS
-                        <span class="badge bg-blue">{{ $posts->count() }}</span>
-                    </h2>
-                </div>
-                <div class="body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover dataTable js-exportable">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Title</th>
-                                    <th>Author</th>
-                                    <th><i class="material-icons">favorite</i></th>
-                                    <!-- <th><i class="material-icons">comment</i></th> -->
-                                    <th><i class="material-icons">visibility</i></th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tfoot>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Title</th>
-                                    <th>Author</th>
-                                    <th><i class="material-icons">favorite</i></th>
-                                    <!-- <th><i class="material-icons">comment</i></th> -->
-                                    <th><i class="material-icons">visibility</i></th>
-                                    <th>Action</th>
-                                </tr>
-                            </tfoot>
-                            <tbody>
-                              @foreach($posts as $key=>$post)
+  <div class="row">
+      <div class="col-md-12">
+          <div class="card">
+              <div class="card-header card-header-primary card-header-icon">
+                  <div class="card-icon">
+                      <i class="material-icons">assignment</i>
+                    </div>
+                    <h4 class="card-title">
+                        All Favorite Posts
+                    </h4>
+              </div>
+              <div class="card-body">
+                  <div class="toolbar">
+                      <!--        Here you can write extra buttons/actions for the toolbar              -->
+                  </div>
+                  <div class="material-datatables">
+                      <table id="datatables" class="table table-striped table-no-bordered table-hover"
+                          cellspacing="0" width="100%" style="width:100%">
+                          <thead>
+                              <tr>
+                                  <th>No</th>
+                                  <th>Title</th>
+                                  <th>Author</th>
+                                  <th><i class="material-icons">favorite</i></th>
+                                  <!-- <th><i class="material-icons">comment</i></th> -->
+                                  <th><i class="material-icons">visibility</i></th>
+                                  <th class="text-center">Actions</th>
+                              </tr>
+                          </thead>
+                          <tfoot>
+                              <tr>
+                                  <th>No</th>
+                                  <th>Title</th>
+                                  <th>Author</th>
+                                  <th><i class="material-icons">favorite</i></th>
+                                  <!-- <th><i class="material-icons">comment</i></th> -->
+                                  <th><i class="material-icons">visibility</i></th>
+                                  <th class="text-center">Actions</th>
+                              </tr>
+                          </tfoot>
+                          <tbody>
+                            @foreach($posts as $key=>$post)
+
                               <tr>
                                 <td>{{ $key + 1 }}</td>
                                 <td>{{ str_limit($post->title, '10') }}</td>
@@ -55,75 +61,64 @@
                                 <td>{{ $post->favorite_to_users->count() }}</td>
                                 <td>{{ $post->view_count }}</td>
                                 <td class="text-center">
-                                  <a href="{{ route('admin.post.show',$post->id) }}" class="btn btn-info waves-effect">
-                                    <i class="material-icons">visibility</i>
-                                  </a>
-                                  <button class="btn btn-danger waves-effect" type="button" onclick="removePost({{ $post->id }})">
-                                    <i class="material-icons">delete</i>
-                                  </button>
-                                  <form id="remove-from-{{ $post->id }}" action="{{ route('post.favorite',$post->id) }}" method="POST" style="display: none">
+                                  <a href="#" class="btn btn-link btn-info btn-just-icon like"><i class="material-icons">edit</i></a>
+                                  <a href="#" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">delete</i></a>
                                     @csrf
+                                    @method('DELETE')
                                   </form>
                                 </td>
                               </tr>
                               @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- #END# Exportable Table -->
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+              <!-- end content-->
+          </div>
+          <!--  end card  -->
+      </div>
+      <!-- end col-md-12 -->
+  </div>
+  <!-- end row -->
 </div>
 @endsection
 
 @push('js')
-<!-- Jquery DataTable Plugin Js -->
-<script src="{{ asset('assets/backend/plugins/jquery-datatable/jquery.dataTables.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/jquery-datatable/extensions/export/buttons.flash.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/jquery-datatable/extensions/export/jszip.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/jquery-datatable/extensions/export/pdfmake.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/jquery-datatable/extensions/export/vfs_fonts.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/jquery-datatable/extensions/export/buttons.html5.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/jquery-datatable/extensions/export/buttons.print.min.js') }}"></script>
+ <script>
+        $(document).ready(function () {
+            $('#datatables').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, "All"]
+                ],
+                responsive: true,
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search records",
+                }
+            });
 
-<script src="{{ asset('assets/backend/js/pages/tables/jquery-datatable.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.26.10/dist/sweetalert2.all.min.js"></script>
-<script type="text/javascript">
-  function removePost(id) {
-    const swalWithBootstrapButtons = swal.mixin({
-      confirmButtonClass: 'btn btn-success',
-      cancelButtonClass: 'btn btn-danger',
-      buttonsStyling: false,
-    })
+            var table = $('#datatable').DataTable();
 
-    swalWithBootstrapButtons({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.value) {
-        event.preventDefault()
-        document.getElementById('remove-from-'+id).submit();
-      } else if (
-        // Read more about handling dismissals
-        result.dismiss === swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons(
-          'Cancelled',
-          'Your data is safe :)',
-          'error'
-        )
-      }
-    })
-  }
-</script>
+            // Edit record
+            table.on('click', '.edit', function () {
+                $tr = $(this).closest('tr');
+                var data = table.row($tr).data();
+                alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+            });
 
+            // Delete a record
+            table.on('click', '.remove', function (e) {
+                $tr = $(this).closest('tr');
+                table.row($tr).remove().draw();
+                e.preventDefault();
+            });
+
+            //Like record
+            table.on('click', '.like', function () {
+                alert('You clicked on Like button');
+            });
+        });
+    </script>
 @endpush

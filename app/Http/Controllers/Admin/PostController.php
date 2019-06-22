@@ -37,8 +37,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        $tags = Tag::all();
+        $categories = Category::orderBy('name', 'ASC')->get()->pluck( 'name', 'id' )->all();
+        $tags = Tag::orderBy('name', 'ASC')->get()->pluck( 'name', 'id' )->all();
         return view('admin.post.create', compact('categories', 'tags'));
     }
 
@@ -50,6 +50,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+      
       $this->validate($request,[
         'title' =>'required',
         'image' =>'required',
@@ -121,8 +122,10 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-      $categories = Category::all();
-      $tags = Tag::all();
+      $categories = Category::orderBy('name', 'ASC')->get()->pluck( 'name', 'id' )->all();
+
+      $tags = Tag::orderBy('name', 'ASC')->get()->pluck( 'name', 'id' )->all();
+      $post = Post::find($post);
       return view('admin.post.edit', compact('post', 'categories', 'tags'));
     }
 

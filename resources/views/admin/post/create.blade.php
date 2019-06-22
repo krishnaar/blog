@@ -5,91 +5,93 @@
 @push('css')
   <!-- Bootstrap Select Css -->
   <link href="{{ asset('assets/backend/plugins/bootstrap-select/css/bootstrap-select.css') }}" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
 @endpush
 
 @section('content')
 <div class="container-fluid">
-    <!-- Vertical Layout | With Floating Label -->
-  <form action="{{ route('admin.post.store') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    <div class="row clearfix">
-        <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-                <div class="header">
-                    <h2>
-                        ADD NEW POST
-                    </h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card ">
+                <div class="card-header card-header-rose card-header-text">
+                    <div class="card-text">
+                        <h4 class="card-title">Post</h4>
+                    </div>
                 </div>
-                <div class="body">
-                        <div class="form-group form-float">
-                            <div class="form-line">
-                                <input type="text" id="title" class="form-control" name="title">
-                                <label class="form-label">Post Title</label>
+                <div class="card-body ">
+                    <form method="#" action="#">
+                        <div class="form-group">
+                            <label for="exampleEmail" class="bmd-label-floating">Post Title</label>
+                            <input type="text" class="form-control" id="exampleEmail">
+                        </div>
+                        <h4 class="title">Featured Image</h4>
+                        <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                            <div class="fileinput-new thumbnail">
+                                <img src="{{ asset('assets/backend') }}/img/image_placeholder.jpg" alt="...">
+                            </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                            <div>
+                                <span class="btn btn-rose btn-round btn-file">
+                                    <span class="fileinput-new">Select image</span>
+                                    <span class="fileinput-exists">Change</span>
+                                    <input type="file" name="..." />
+                                </span>
+                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists"
+                                    data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                          <label for="image">Featured Image</label>
-                          <input type="file" name="image" value="">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" value="" {{ !empty($post) && $post->status == true ? 'checked' : '' }}> Publish
+                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                </span>
+                            </label>
                         </div>
-                        <div class="form-group">
-                          <input type="checkbox" id="publish" name="status" class="filled-in" value="1">
-                          <label for="publish">Publish</label>
-                        </div>
+                    </form>
+                </div>
+                <div class="card-footer ">
+                    <button type="submit" class="btn btn-fill btn-rose">Submit</button>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-                <div class="header">
-                    <h2>
-                        CATEGORIES AND TAGS
-                    </h2>
+        <div class="col-md-6">
+            <div class="card ">
+                <div class="card-header card-header-rose card-header-text">
+                    <div class="card-text">
+                        <h4 class="card-title">Categories and Tags</h4>
+                    </div>
                 </div>
-                <div class="body">
-                        <div class="form-group form-float">
-                            <div class="form-line {{ $errors->has('categories') ? 'focused error' : '' }}">
-                                <label for="category">Select Category</label>
-                                <select class="form-control show-tick" name="categories[]" id="category" data-live-search="true" multiple>
-                                  @foreach($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                  @endforeach
-                                </select>
-                            </div>
+                <div class="card-body ">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            {!! Form::select('categories[]',['' => '-- Selecy Categories --']  + $categories, !empty($post) ? $post->categories->pluck('id')->toArray() : NULL , ['class' => 'selectpicker', 'autocomplete' => 'off', 'required' => true, 'id' => 'color', 'multiple', 'data-style' => 'select-with-transition', 'title' => 'Choose Categories']) !!}
                         </div>
-
-                        <div class="form-group form-float">
-                            <div class="form-line {{ $errors->has('tags') ? 'focused error' : '' }}">
-                                <label for="tag">Select Tag</label>
-                                <select class="form-control show-tick" name="tags[]" id="tag" data-live-search="true" multiple>
-                                  @foreach($tags as $tag)
-                                    <option value="{{ $tag->id }}">{{ $tag->name }}</option>
-                                  @endforeach
-                                </select>
+                        <br>
+                        <div class="col-md-12">
+                            <div class="row">
+                                    {!! Form::select('tags[]',['' => '-- Selecy Tags --']  + $tags, !empty($post) ? $post->tags->pluck('id')->toArray() : NULL , ['class' => 'selectpicker', 'autocomplete' => 'off', 'required' => true, 'id' => 'color', 'multiple', 'data-style' => 'select-with-transition', 'title' => 'Choose Tags']) !!}
+                                </div>
                             </div>
-                        </div>
-
-                        <a class="btn btn-danger m-t-15 waves-effect" href="{{ route('admin.category.index') }}">BACK</a>
-                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">SUBMIT</button>
+                    </form>
+                </div>
+                <div class="card-footer ">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card ">
+                <div class="card-header card-header-rose card-header-text">
+                    <div class="card-text">
+                        <h4 class="card-title">Body</h4>
+                    </div>
+                </div>
+                <div class="card-body ">
+                    <textarea name="body" id="summernote">{{ !empty($post) ? $post->body : '' }}</textarea>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-                <div class="header">
-                    <h2>
-                        BODY
-                    </h2>
-                </div>
-                <div class="body">
-                  <textarea name="body" id="tinymce"></textarea>
-                </div>
-            </div>
-        </div>
-    </div>
-  </form>
 </div>
 @endsection
 
@@ -97,26 +99,13 @@
 <!-- Select Plugin Js -->
 <script src="{{ asset('assets/backend/plugins/bootstrap-select/js/bootstrap-select.js') }}"></script>
 <!-- TinyMCE -->
-<script src="{{ asset('assets/backend/plugins/tinymce/tinymce.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
+
 <script>
-$(function () {
-    //TinyMCE
-    tinymce.init({
-        selector: "textarea#tinymce",
-        theme: "modern",
-        height: 300,
-        plugins: [
-            'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-            'searchreplace wordcount visualblocks visualchars code fullscreen',
-            'insertdatetime media nonbreaking save table contextmenu directionality',
-            'emoticons template paste textcolor colorpicker textpattern imagetools'
-        ],
-        toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-        toolbar2: 'print preview media | forecolor backcolor emoticons',
-        image_advtab: true
+$(document).ready( function() {
+    $('#summernote').summernote({
+      height: 300,
     });
-    tinymce.suffix = ".min";
-    tinyMCE.baseURL = '{{ asset('assets/backend/plugins/tinymce') }}';
 });
 </script>
 @endpush
